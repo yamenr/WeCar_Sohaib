@@ -2,6 +2,7 @@ package com.example.wecar;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -249,9 +251,7 @@ public class AddCarFragment extends Fragment {
 
         Car car= new Car(nameCar, horse_power, owners, color , //drive_type ,
                 car_num, manufacturer, year, Car_model,
-                test ,kilometre,Engine_capacity,Gear_shifting_model,price);
-
-
+                test ,kilometre,Engine_capacity,Gear_shifting_model,price,"");
 
 
         fbs.getFire().collection("cars").add(car)
@@ -313,6 +313,64 @@ public class AddCarFragment extends Fragment {
         FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMain,new CarsListFragment());
         ft.commit();
-
     }
+
+/*
+    public void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                // Get the image's URI
+                final android.net.Uri imageUri = data.getData();
+
+                // Load the image into the ImageView using an asynchronous task or a library like Glide or Picasso
+                // For example, using Glide:
+                Glide.with(this).load(imageUri).into(ivUser);
+                uploadImage(imageUri);
+            }
+        }
+    }
+*/
+
+    /*
+    public void uploadImage(Uri selectedImageUri) {
+        if (selectedImageUri != null) {
+            imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
+            StorageReference imageRef = storageReference.child("images/" + selectedImageUri.getLastPathSegment());
+
+            UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //selectedImageUri = uri;
+                            fbs.setSelectedImageURL(uri);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                    Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Please choose an image first", Toast.LENGTH_SHORT).show();
+        }
+    } */
 }

@@ -15,11 +15,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int actionHome = 1000026; // R.id.action_home
-    private final int actionFav = 1000035; // R.id.action_fav
-    private final int actionAdd = 1000044; // R.id.action_add
-    private final int actionSearch = 1000021; // R.id.action_search
-    private final int actionSignout = 1000022; // R.id.action_signout
     private FirebaseServices fbs;
     private BottomNavigationView bottomNavigationView;
     private ListFragmentType listType;
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new AddCarFragment();
             }
             else if (item.getItemId() == R.id.action_search) { // Add search bar
-                selectedFragment = new CarsListFragment();
+                selectedFragment = new SearchFragment();
             }
             else if (item.getItemId() == R.id.action_signout) {
                 signout();

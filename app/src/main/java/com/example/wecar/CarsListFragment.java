@@ -137,7 +137,7 @@ public class CarsListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                applyFilter(newText);
+                //applyFilter(newText);
                 return false;
             }
         });

@@ -27,7 +27,6 @@ public class LoginFragment extends Fragment {
 
     private EditText etUsername,etPassword;
     private TextView tvSignupLink;
-
     private TextView tvForgotPasswardLink;
     private Button btnLogin;
     private FirebaseServices fbs;

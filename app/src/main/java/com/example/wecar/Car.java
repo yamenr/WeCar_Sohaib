@@ -15,26 +15,29 @@ public class Car {
     private  String Engine_capacity; //קיבולת מנוע
     private  String Gear_shifting_model;  //דגם מעביר הילוכים
     private  String   price; //מחיר
+    private String photo;
 
-    public Car() {
-    }
+    public Car() {}
 
-    public Car(String nameCar, String horse_power, String owners, String color, /*String drive_type,*/ String car_num, String manufacturer, String year, String car_model, String test, String kilometre, String engine_capacity, String gear_shifting_model, String price) {
+    public Car(String nameCar, String horse_power, String owners, String color,
+               String car_num, String manufacturer, String year,
+               String car_model, String test, String kilometre,
+               String engine_capacity, String gear_shifting_model,
+               String price, String photo) {
         this.nameCar = nameCar;
         this.horse_power = horse_power;
         this.owners = owners;
         this.color = color;
-       // this.drive_type = drive_type;
         this.car_num = car_num;
         this.manufacturer = manufacturer;
         this.year = year;
-
         Car_model = car_model;
         this.test = test;
         this.kilometre = kilometre;
         Engine_capacity = engine_capacity;
         Gear_shifting_model = gear_shifting_model;
         this.price = price;
+        this.photo = photo;
     }
 
     public String getNameCar() {
@@ -68,14 +71,6 @@ public class Car {
     public void setColor(String color) {
         this.color = color;
     }
-/*
-    public String getDrive_type() {
-        return drive_type;
-    }
-
-    public void setDrive_type(String drive_type) {
-        this.drive_type = drive_type;
-    }*/
 
     public String getCar_num() {
         return car_num;
@@ -100,7 +95,6 @@ public class Car {
     public void setYear(String year) {
         this.year = year;
     }
-
 
     public String getCar_model() {
         return Car_model;
@@ -150,6 +144,14 @@ public class Car {
         this.price = price;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -157,7 +159,6 @@ public class Car {
                 ", horse_power='" + horse_power + '\'' +
                 ", owners='" + owners + '\'' +
                 ", color='" + color + '\'' +
-               /* ", drive_type='" + drive_type + '\'' +*/
                 ", car_num='" + car_num + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", year='" + year + '\'' +
@@ -167,6 +168,7 @@ public class Car {
                 ", Engine_capacity='" + Engine_capacity + '\'' +
                 ", Gear_shifting_model='" + Gear_shifting_model + '\'' +
                 ", price='" + price + '\'' +
+                ", photo='" + photo + '\'' +
                 '}';
     }
 }
