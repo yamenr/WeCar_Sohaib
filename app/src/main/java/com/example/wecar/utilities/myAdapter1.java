@@ -1,13 +1,18 @@
-package com.example.wecar;
+package com.example.wecar.utilities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wecar.R;
+import com.example.wecar.data.Car;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,16 +40,17 @@ public class myAdapter1 extends RecyclerView.Adapter<myAdapter1.MyViewHolder> {
         Car car= carsList.get(position);
 
         holder.carName.setText(car.getNameCar());
-       holder.Price.setText(car.getPrice());
-       holder.Year.setText(car.getYear());
-       holder.location.setText("Nazareth");
-       holder.GearShift.setText(car.getGear_shifting_model());
-       holder.kilometre.setText(car.getKilometre());
-       holder.carName.setOnClickListener(v -> {
+        holder.Price.setText(car.getPrice());
+        holder.Year.setText(car.getYear());
+        holder.location.setText("Nazareth");
+        holder.GearShift.setText(car.getGear_shifting_model());
+        holder.kilometre.setText(car.getKilometre());
+        holder.carName.setOnClickListener(v -> {
            if (itemClickListener != null) {
                itemClickListener.onItemClick(position);
            }
-       });
+        });
+       Picasso.get().load(car.getPhoto()).into(holder.ivCar);
    }
     @Override
     public int getItemCount(){
@@ -53,7 +59,7 @@ public class myAdapter1 extends RecyclerView.Adapter<myAdapter1.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView  carName,Price,Year,location,GearShift,kilometre;
-
+        ImageView ivCar;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             carName=itemView.findViewById(R.id.tvNameCar_carListFragment);
@@ -62,8 +68,7 @@ public class myAdapter1 extends RecyclerView.Adapter<myAdapter1.MyViewHolder> {
             location=itemView.findViewById(R.id.tvlocation_carListFragment);
             GearShift=itemView.findViewById(R.id.tvGearShift_carListFragment);
             kilometre=itemView.findViewById(R.id.tvKelometer_carListFragment);
-
-
+            ivCar = itemView.findViewById(R.id.ivCarPhotoItem);
         }
     }
 

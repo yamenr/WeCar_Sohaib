@@ -1,4 +1,4 @@
-package com.example.wecar;
+package com.example.wecar.data;
 
 import android.net.Uri;
 

@@ -10,13 +10,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.wecar.data.FirebaseServices;
+import com.example.wecar.data.ListFragmentType;
+import com.example.wecar.fragments.AddCarFragment;
+import com.example.wecar.fragments.CarsListFragment;
+import com.example.wecar.fragments.LoginFragment;
+import com.example.wecar.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-// TODO: Add user extended data
-   // included number for contact in whatsapp
 // TODO: multi photo
-// TODO: photo size
 // TODO: back stack for fragments
 // TODO: Check favourits, details
 // TODO: Search fragment - recyclerview crash issue
@@ -96,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (fbs.getAuth().getCurrentUser() == null)
         {
-            bottomNavigationView.setVisibility(View.INVISIBLE);
+
+            bottomNavigationView.setVisibility(View.GONE);
             gotoLoginFragment();
         }
         else

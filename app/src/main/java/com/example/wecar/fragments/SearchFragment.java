@@ -1,4 +1,4 @@
-package com.example.wecar;
+package com.example.wecar.fragments;
 
 import android.os.Bundle;
 
@@ -12,18 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wecar.data.FirebaseServices;
+import com.example.wecar.R;
+import com.example.wecar.data.Car;
+import com.example.wecar.utilities.myAdapter1;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -90,23 +85,78 @@ public class SearchFragment extends Fragment {
     }
 
     private void performSearch() {
+        String selectManDefaultStr = manufacturerList[0];
+        String selectCarDefaultStr = carModelList[0];
+        String selectStartYearDefaultStr = yearList[0];
+        String selectEndYearDefaultStr = yearList[0];
+
         String selectedManufacturer = manufacturerSpinner.getSelectedItem().toString();
         String selectedCarModel = carModelSpinner.getSelectedItem().toString();
         String selectedStartYear = startYearSpinner.getSelectedItem().toString();
         String selectedEndYear = endYearSpinner.getSelectedItem().toString();
 
+        boolean manFlag, modelFlag, yearStartFlag, yearEndFlag;
+        manFlag = modelFlag = yearStartFlag = yearEndFlag = false;
+
+        if (!selectedManufacturer.equals(selectManDefaultStr))
+            manFlag = true;
+        if (!selectedCarModel.equals(selectCarDefaultStr))
+            modelFlag = true;
+        if (!selectedStartYear.equals(selectStartYearDefaultStr))
+            yearStartFlag = true;
+        if (!selectedEndYear.equals(selectEndYearDefaultStr))
+            yearEndFlag = true;
+
         filteredList.clear();
-        for(Car car : list)
-        {
-            if (car.getManufacturer().toLowerCase().contains(selectedManufacturer.toLowerCase()) ||
-                    car.getCar_model().toLowerCase().contains(selectedCarModel.toLowerCase()))
-            // TODO: stand and end)
-            {
-                filteredList.add(car);
+        for(Car car : list) {
+            boolean manFound = false, modelFound = false, yearFound = false;
+
+            if (manFlag) {
+                if (car.getManufacturer().toLowerCase().contains(selectedManufacturer.toLowerCase()))
+                    manFound = true;
             }
+
+            if (modelFlag) {
+                if (car.getCar_model().toLowerCase().contains(selectedCarModel.toLowerCase()))
+                    modelFound = true;
+            }
+
+            if (yearStartFlag && yearEndFlag) {
+                if (Integer.parseInt(car.getYear().toLowerCase()) >= Integer.parseInt(selectedStartYear) &&
+                        Integer.parseInt(car.getYear().toLowerCase()) <= Integer.parseInt(selectedEndYear)) {
+                    yearFound = true;
+                }
+            }
+            else if (yearStartFlag && !yearEndFlag)
+            {
+                if (Integer.parseInt(car.getYear().toLowerCase()) >= Integer.parseInt(selectedStartYear) &&
+                        Integer.parseInt(car.getYear().toLowerCase()) <= Integer.parseInt(yearList[yearList.length - 1])) {
+                    yearFound = true;
+                }
+            }
+            else if (!yearStartFlag && yearEndFlag)
+            {
+                if (Integer.parseInt(car.getYear().toLowerCase()) >= Integer.parseInt(yearList[1]) &&
+                        Integer.parseInt(car.getYear().toLowerCase()) <= Integer.parseInt(yearList[yearList.length - 1])) {
+                    yearFound = true;
+                }
+            }
+
+            if ((!manFlag) || (manFlag && manFound))
+            {
+                if ((!modelFlag) || (modelFlag && modelFound) ) {
+                    if ((!yearStartFlag && !yearEndFlag) ||
+                            (((yearStartFlag && !yearEndFlag) || (!yearStartFlag && yearEndFlag)) && yearFound))
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            }
+
         }
 
-
+        myAdapter= new myAdapter1(getActivity(),filteredList);
+        recyclerView.setAdapter(myAdapter);
     }
 
     private void clearSelections() {
@@ -114,6 +164,8 @@ public class SearchFragment extends Fragment {
         carModelSpinner.setSelection(0);
         startYearSpinner.setSelection(0);
         endYearSpinner.setSelection(0);
+        myAdapter= new myAdapter1(getActivity(),list);
+        recyclerView.setAdapter(myAdapter);
     }
 
     @Override
@@ -147,3 +199,58 @@ public class SearchFragment extends Fragment {
         });
     }
 }
+
+/*
+            if ((!manFlag) || (manFlag && manFound))
+            {
+                if ((!yearFlag) || (yearFlag && yearFound)) {
+                    if ((!modelFlag) || (modelFlag && modelFound) )
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            }
+
+            if ((!modelFlag) || (modelFlag && modelFound))
+            {
+                if ((!manFlag) || (manFlag && manFound))
+                {
+                    if ((!yearFlag) || (yearFlag && yearFound))
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            }
+
+            if ((!modelFlag) || (modelFlag && modelFound))
+            {
+                if ((!yearFlag) || (yearFlag && yearFound))
+                {
+                    if ((!manFlag) || (manFlag && manFound))
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            }
+
+            if ((!yearFlag) || (yearFlag && yearFound))
+            {
+                if ((!modelFlag) || (modelFlag && modelFound))
+                {
+                    if ((!manFlag) || (manFlag && manFound))
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            }
+
+            if ((!yearFlag) || (yearFlag && yearFound))
+            {
+                if ((!manFlag) || (manFlag && manFound))
+                {
+                    if ((!modelFlag) || (modelFlag && modelFound))
+                    {
+                        filteredList.add(car);
+                    }
+                }
+            } */

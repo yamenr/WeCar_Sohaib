@@ -1,4 +1,4 @@
-package com.example.wecar;
+package com.example.wecar.fragments;
 
 import android.os.Bundle;
 
@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wecar.data.FirebaseServices;
+import com.example.wecar.MainActivity;
+import com.example.wecar.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -115,7 +118,7 @@ public class LoginFragment extends Fragment {
                 //Data validation
 
                 String username=etUsername.getText().toString();
-                String password=etUsername.getText().toString();
+                String password=etPassword.getText().toString();
                 if(username.trim().isEmpty()&&password.trim().isEmpty()){
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
                     return;

@@ -1,16 +1,10 @@
-package com.example.wecar;
+package com.example.wecar.fragments;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,16 +19,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wecar.data.FirebaseServices;
+import com.example.wecar.R;
+import com.example.wecar.data.Car;
+import com.example.wecar.utilities.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 /**
@@ -51,7 +47,7 @@ public class AddCarFragment extends Fragment {
             etEngine_capacity,etGear_shifting_model,etPrice;
     private Button btnAddCar;
     private FirebaseServices fbs;
-
+    private Utils utils;
     Spinner colorSpinner,yearOfCarSpinner;
     //////////////////////try spinner////////////////////////////////////////////////////////
     //try new spinner//
@@ -123,6 +119,7 @@ public class AddCarFragment extends Fragment {
                                                    // ---->    פרטי הוספת רכב    <----
         //editText
         fbs=FirebaseServices.getInstance();
+        utils = Utils.getInstance();
         etnameCar=getView().findViewById(R.id.etNameCarAddFragment);
         ethorse_power=getView().findViewById(R.id.etHorsePowerAddFragment);
         etOwners=getView().findViewById(R.id.etOwnersAddFragment);
@@ -286,8 +283,7 @@ public class AddCarFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             img.setImageURI(selectedImageUri);
-            uploadImage(selectedImageUri);
-
+            utils.uploadImage(getActivity(), selectedImageUri);
         }
     }
 
@@ -298,6 +294,7 @@ public class AddCarFragment extends Fragment {
         ft.commit();
     }
 
+    /*
     public void uploadImage(Uri selectedImageUri) {
         if (selectedImageUri != null) {
             imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
@@ -330,5 +327,5 @@ public class AddCarFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Please choose an image first", Toast.LENGTH_SHORT).show();
         }
-    }
+    } */
 }
