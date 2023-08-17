@@ -13,6 +13,14 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+// TODO: Add user extended data
+   // included number for contact in whatsapp
+// TODO: multi photo
+// TODO: photo size
+// TODO: back stack for fragments
+// TODO: Check favourits, details
+// TODO: Search fragment - recyclerview crash issue
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseServices fbs;
@@ -80,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 */
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frameLayoutMain, selectedFragment)
+                            .replace(R.id.frameLayout, selectedFragment)
                             .commit();
                 }
                 return true;
@@ -108,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void gotoLoginFragment() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new LoginFragment());
+        ft.replace(R.id.frameLayout,new LoginFragment());
         ft.commit();
     }
     public void gotoCarList() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new CarsListFragment());
+        ft.replace(R.id.frameLayout,new CarsListFragment());
         ft.commit();
     }
 

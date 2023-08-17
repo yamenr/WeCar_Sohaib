@@ -204,7 +204,7 @@ public class CarsListFragment extends Fragment {
 
     public void gotoAddCarFragment() {
         FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new AddCarFragment());
+        ft.replace(R.id.frameLayout,new AddCarFragment());
         ft.commit();
     }
 

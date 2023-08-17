@@ -104,6 +104,7 @@ public class SignupFragment extends Fragment {
 
                         if (task.isSuccessful())
                         {
+
                             Toast.makeText(getActivity(), "you have succesfully signed up", Toast.LENGTH_SHORT).show();
                         }
                         else

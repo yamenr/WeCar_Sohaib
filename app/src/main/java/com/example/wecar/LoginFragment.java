@@ -155,23 +155,23 @@ public class LoginFragment extends Fragment {
 
     public void gotoCarList() {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new CarsListFragment());
+        ft.replace(R.id.frameLayout,new CarsListFragment());
         ft.commit();
     }
     private void gotoAddCarFragment() {
         FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new AddCarFragment());
+        ft.replace(R.id.frameLayout,new AddCarFragment());
         ft.commit();
     }
     private void gotoSignupFragment() {
         FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new SignupFragment());
+        ft.replace(R.id.frameLayout,new SignupFragment());
         ft.commit();
 
     }
     private void gotoFrgotPasswordFragment() {
         FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new FrgotPasswordFragment());
+        ft.replace(R.id.frameLayout,new FrgotPasswordFragment());
         ft.commit();
 
     }

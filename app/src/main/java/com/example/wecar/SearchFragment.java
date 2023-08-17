@@ -2,6 +2,7 @@ package com.example.wecar;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,15 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
@@ -29,6 +39,10 @@ public class SearchFragment extends Fragment {
     private Spinner endYearSpinner;
     private Button searchButton;
     private Button clearButton;
+    RecyclerView recyclerView;
+    FirebaseServices fbs;
+    myAdapter1 myAdapter;
+    ArrayList<Car> list, filteredList;
 
     private String[] manufacturerList = {"Select Manufacturer", "Toyota", "Honda", "Ford", "BMW"};
     private String[] carModelList = {"Select Car Model", "Corolla", "Civic", "Focus", "3 Series"};
@@ -38,7 +52,6 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
         manufacturerSpinner = view.findViewById(R.id.searchManufacturerSpinner);
         carModelSpinner = view.findViewById(R.id.searchCarModelSpinner);
         startYearSpinner = view.findViewById(R.id.searchStartYearSpinner);
@@ -82,8 +95,18 @@ public class SearchFragment extends Fragment {
         String selectedStartYear = startYearSpinner.getSelectedItem().toString();
         String selectedEndYear = endYearSpinner.getSelectedItem().toString();
 
-        // Perform search logic with selected values
-        // You can display results, show a toast, etc.
+        filteredList.clear();
+        for(Car car : list)
+        {
+            if (car.getManufacturer().toLowerCase().contains(selectedManufacturer.toLowerCase()) ||
+                    car.getCar_model().toLowerCase().contains(selectedCarModel.toLowerCase()))
+            // TODO: stand and end)
+            {
+                filteredList.add(car);
+            }
+        }
+
+
     }
 
     private void clearSelections() {
@@ -91,5 +114,36 @@ public class SearchFragment extends Fragment {
         carModelSpinner.setSelection(0);
         startYearSpinner.setSelection(0);
         endYearSpinner.setSelection(0);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        recyclerView = getView().findViewById(R.id.rvCarsSearchFragment);
+        fbs = FirebaseServices.getInstance();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        list= new ArrayList<>(); filteredList = new ArrayList<>();
+        myAdapter= new myAdapter1(getActivity(),list);
+        recyclerView.setAdapter(myAdapter);
+        getCarList();
+    }
+
+    private void getCarList() {
+        fbs.getFire().collection("cars").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
+                    Car car= dataSnapshot.toObject(Car.class);
+                    list.add(car);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

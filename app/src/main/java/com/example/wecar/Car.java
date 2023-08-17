@@ -1,5 +1,7 @@
 package com.example.wecar;
 
+
+
 public class Car {
     private String nameCar;
     private  String horse_power;//כוח סוס
