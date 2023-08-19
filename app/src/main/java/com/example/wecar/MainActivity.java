@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.example.wecar.data.FirebaseServices;
 import com.example.wecar.data.ListFragmentType;
@@ -19,9 +20,10 @@ import com.example.wecar.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Stack;
+
 // TODO: multi photo
-// TODO: back stack for fragments
-// TODO: Check favourits, details
+// TODO: Check favourites, details
 // TODO: Search fragment - recyclerview crash issue
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseServices fbs;
     private BottomNavigationView bottomNavigationView;
     private ListFragmentType listType;
-
+    private Stack<Fragment> fragmentStack = new Stack<>();
+    private FrameLayout fragmentContainer;
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
     }
@@ -96,17 +99,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }});
-
+        fragmentContainer = findViewById(R.id.frameLayout);
         if (fbs.getAuth().getCurrentUser() == null)
         {
-
             bottomNavigationView.setVisibility(View.GONE);
             gotoLoginFragment();
+            pushFragment(new LoginFragment());
         }
         else
         {
             bottomNavigationView.setVisibility(View.VISIBLE);
             gotoCarList();
+            pushFragment(new CarsListFragment());
         }
 
     }
@@ -129,4 +133,27 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (fragmentStack.size() > 1) {
+            fragmentStack.pop(); // Remove the current fragment from the stack
+            Fragment previousFragment = fragmentStack.peek(); // Get the previous fragment
+
+            // Replace the current fragment with the previous one
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, previousFragment)
+                    .commit();
+        } else {
+            super.onBackPressed(); // If there's only one fragment left, exit the app
+        }
+    }
+
+    // Method to add a new fragment to the stack
+    public void pushFragment(Fragment fragment) {
+        fragmentStack.push(fragment);
+        /*
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit(); */
+    }
 }

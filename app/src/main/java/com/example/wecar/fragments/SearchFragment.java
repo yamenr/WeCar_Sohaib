@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wecar.MainActivity;
 import com.example.wecar.data.FirebaseServices;
 import com.example.wecar.R;
 import com.example.wecar.data.Car;
@@ -179,6 +180,7 @@ public class SearchFragment extends Fragment {
         myAdapter= new myAdapter1(getActivity(),list);
         recyclerView.setAdapter(myAdapter);
         getCarList();
+        ((MainActivity)getActivity()).pushFragment(new SearchFragment());
     }
 
     private void getCarList() {

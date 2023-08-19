@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AddCarFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ImageView for Car Image -->
+        <ImageView
+            android:id="@+id/ivCarDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Car Image" />
+
+        <!-- Buttons for SMS, WhatsApp, and Call -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnSMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SMS"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnWhatsApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WhatsApp"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCarNumberDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Number" />
+
+        <!-- Car Name -->
+
+        <TextView
+            android:id="@+id/tvNameCarDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name of Car" />
+
+        <!-- Car Model -->
+        <TextView
+            android:id="@+id/tvCarModelDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Model" />
+
+        <!-- Year of Car -->
+        <TextView
+            android:id="@+id/tvYearDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Year of Car" />
+
+        <!-- Manufacturer -->
+        <TextView
+            android:id="@+id/tvManufacturerDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Manufacturer" />
+
+        <!-- Car Type -->
+        <TextView
+            android:id="@+id/tvCarTypeDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Type" />
+
+        <!-- Year of Test -->
+        <TextView
+            android:id="@+id/tvTestDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Year of Test" />
+
+        <!-- Kilometres -->
+        <TextView
+            android:id="@+id/tvKilometreDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kilometres" />
+
+        <!-- Engine Capacity -->
+        <TextView
+            android:id="@+id/tvEngineCapacityDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Engine Capacity" />
+
+        <!-- ... other views ... -->
+
+        <!-- Owners -->
+        <TextView
+            android:id="@+id/tvOwnersDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Owners" />
+
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/tvPhoneDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Owners" />
+
+        <!-- Horse Power -->
+        <TextView
+            android:id="@+id/tvHorsePowerDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Horse Power" />
+
+        <!-- Gear Shifting Model -->
+        <TextView
+            android:id="@+id/tvGearShiftDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gear Shifting Model" />
+
+        <!-- Color -->
+        <TextView
+            android:id="@+id/tvColorDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Color" />
+
+        <!-- Price -->
+        <TextView
+            android:id="@+id/tvPriceDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price" />
+
+        <!-- Buttons for actions -->
+
+    </LinearLayout>
+</ScrollView>

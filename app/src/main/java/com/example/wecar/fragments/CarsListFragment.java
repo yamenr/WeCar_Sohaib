@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.wecar.MainActivity;
 import com.example.wecar.data.FirebaseServices;
 import com.example.wecar.R;
 import com.example.wecar.data.Car;
@@ -103,6 +104,13 @@ public class CarsListFragment extends Fragment {
                 // Handle item click here
                 String selectedItem = list.get(position).getNameCar();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("car", list.get(position)); // or use Parcelable for better performance
+                CarDetailsFragment cd = new CarDetailsFragment();
+                cd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit();
             }
         });
         fbs.getFire().collection("cars").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -143,6 +151,8 @@ public class CarsListFragment extends Fragment {
             }
         });
         btnAdd.setVisibility(View.INVISIBLE); // currently hidden
+
+        ((MainActivity)getActivity()).pushFragment(new CarsListFragment());
     }
 
     private void applyFilter(String query) {
@@ -202,5 +212,6 @@ public class CarsListFragment extends Fragment {
         ft.replace(R.id.frameLayout,new AddCarFragment());
         ft.commit();
     }
+
 
 }

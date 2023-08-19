@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.wecar.MainActivity;
 import com.example.wecar.data.FirebaseServices;
 import com.example.wecar.R;
 import com.example.wecar.data.Car;
@@ -30,6 +31,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.UUID;
 
@@ -43,8 +46,8 @@ public class AddCarFragment extends Fragment {
     ImageView img;
     private String imageStr;
     private EditText etnameCar,ethorse_power,etOwners,etColor,etCar_num,
-            etManufacturer,etYear,etCar_type,etCar_model,etTest,etkilometre,
-            etEngine_capacity,etGear_shifting_model,etPrice;
+            etManufacturer,etYear,etCar_model,etTest,etkilometre,
+            etEngine_capacity,etGear_shifting_model,etPrice, etPhone;
     private Button btnAddCar;
     private FirebaseServices fbs;
     private Utils utils;
@@ -123,11 +126,10 @@ public class AddCarFragment extends Fragment {
         etnameCar=getView().findViewById(R.id.etNameCarAddFragment);
         ethorse_power=getView().findViewById(R.id.etHorsePowerAddFragment);
         etOwners=getView().findViewById(R.id.etOwnersAddFragment);
-        //etColor=getView().findViewById(R.id.etColorAddFragment);
+        etPhone=getView().findViewById(R.id.etPhoneAddFragment);
         etCar_num=getView().findViewById(R.id.etCarNumberAddFragment);
         etManufacturer=getView().findViewById(R.id.etManufacturerAddFragment);
         //etYear=getView().findViewById(R.id.etYearAddFragment);
-        etCar_type=getView().findViewById(R.id.etCarTypeAddFragment);
         etCar_model=getView().findViewById(R.id.etCarModelAddFragment);
         etTest=getView().findViewById(R.id.etTestAddFragment);
         etkilometre=getView().findViewById(R.id.etKilometreAddFragment);
@@ -203,11 +205,12 @@ public class AddCarFragment extends Fragment {
                 openGallery();
             }
         });
+        ((MainActivity)getActivity()).pushFragment(new AddCarFragment());
     }
 
     private void addToFirestore() {
 
-        String nameCar, horse_power, owners, drive_type ,
+        String nameCar, horse_power, owners, phone,
                 car_num, manufacturer, year, car_type, Car_model,
                 test ,kilometre,Engine_capacity,Gear_shifting_model,price ;
         String color;
@@ -217,24 +220,20 @@ public class AddCarFragment extends Fragment {
         horse_power=ethorse_power.getText().toString();
         owners=etOwners.getText().toString();
         color=colorSpinner.getSelectedItem().toString();
-        //drive_type=etDrive_type.getText().toString();
+        phone = etPhone.getText().toString();
         car_num=etCar_num.getText().toString();
         manufacturer=etManufacturer.getText().toString();
         year=yearOfCarSpinner.getSelectedItem().toString();
-//        car_type=etCar_type.getText().toString();
         Car_model=etCar_model.getText().toString();
         test=etTest.getText().toString();
         kilometre=etkilometre.getText().toString();
         Engine_capacity=etEngine_capacity.getText().toString();
-        //Gear_shifting_model=etGear_shifting_model.getText().toString();
         Gear_shifting_model="DSG";
         price=etPrice.getText().toString();
 
-        //
-
         if (nameCar.trim().isEmpty()|| horse_power.trim().isEmpty()         ||
                 owners.trim().isEmpty()|| color.trim().isEmpty()            ||
-                /*drive_type.trim().isEmpty()|| */ car_num.trim().isEmpty() ||
+                car_num.trim().isEmpty()                                    ||
                 manufacturer.trim().isEmpty()|| year.trim().isEmpty()       ||
                 Car_model.trim().isEmpty()                                  ||
                 test.trim().isEmpty()||kilometre.trim().isEmpty()           ||
@@ -247,7 +246,7 @@ public class AddCarFragment extends Fragment {
             return;
         }
 
-        Car car= new Car(nameCar, horse_power, owners, color , //drive_type ,
+        Car car= new Car(nameCar, horse_power, owners, phone, color ,
                 car_num, manufacturer, year, Car_model,
                 test ,kilometre,Engine_capacity,Gear_shifting_model,price,fbs.getSelectedImageURL().toString()
         );

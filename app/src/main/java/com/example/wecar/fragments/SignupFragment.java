@@ -169,7 +169,7 @@ public class SignupFragment extends Fragment {
 
             }
         });
-
+        ((MainActivity)getActivity()).pushFragment(new SignupFragment());
     }
 
     private void openGallery() {

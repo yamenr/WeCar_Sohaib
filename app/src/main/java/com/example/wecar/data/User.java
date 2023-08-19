@@ -1,5 +1,7 @@
 package com.example.wecar.data;
 
+import android.os.Parcel;
+
 import java.util.ArrayList;
 
 public class User {
@@ -22,6 +24,9 @@ public class User {
         this.address = address;
         this.photo = photo;
         this.favourits = new ArrayList<>();
+    }
+
+    public User(Parcel in) {
     }
 
     public String getFirstName() {

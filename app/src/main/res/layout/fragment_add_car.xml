@@ -48,12 +48,14 @@
             android:layout_height="wrap_content"
             android:hint="Manufacturer" />
 
-        <!-- Car Type -->
+        <!-- Phone -->
         <EditText
-            android:id="@+id/etCarTypeAddFragment"
+            android:id="@+id/etPhoneAddFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Car Type" />
+            android:hint="Phone" />
+
+        <!-- Car Type -->
 
         <!-- Year of Test -->
         <EditText
