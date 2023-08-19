@@ -37,7 +37,7 @@ public class CarDetailsFragment extends Fragment {
     private static final int REQUEST_CALL_PERMISSION = 2;
     private FirebaseServices fbs;
     private TextView tvnameCar,tvhorse_power,tvOwners,tvColor,tvCar_num,
-            tvManufacturer,tvYear,tvCar_type,tvCar_model,tvTest,tvkilometre,
+            tvManufacturer,tvYear,tvCar_model,tvTest,tvkilometre,
             tvEngine_capacity,tvGear_shifting_model,tvPrice, tvPhone;
     private ImageView ivCarPhoto;
     private Car myCar;
@@ -111,7 +111,6 @@ public class CarDetailsFragment extends Fragment {
         tvManufacturer=getView().findViewById(R.id.tvManufacturerDetailsFragment);
         tvYear = getView().findViewById(R.id.tvYearDetailsFragment);
         tvColor = getView().findViewById(R.id.tvColorDetailsFragment);
-        tvCar_type=getView().findViewById(R.id.tvCarTypeDetailsFragment);
         tvCar_model=getView().findViewById(R.id.tvCarModelDetailsFragment);
         tvTest=getView().findViewById(R.id.tvTestDetailsFragment);
         tvkilometre=getView().findViewById(R.id.tvKilometreDetailsFragment);
@@ -134,13 +133,19 @@ public class CarDetailsFragment extends Fragment {
                 tvManufacturer.setText(myCar.getManufacturer());
                 tvYear.setText(myCar.getYear());
                 tvColor.setText(myCar.getColor());
-                tvCar_model=getView().findViewById(R.id.tvCarModelDetailsFragment);
-                tvTest=getView().findViewById(R.id.tvTestDetailsFragment);
-                tvkilometre=getView().findViewById(R.id.tvKilometreDetailsFragment);
-                tvEngine_capacity=getView().findViewById(R.id.tvEngineCapacityDetailsFragment);
-                tvGear_shifting_model=getView().findViewById(R.id.tvGearShiftDetailsFragment);
-                tvPrice=getView().findViewById(R.id.tvPriceDetailsFragment);
-                Picasso.get().load(myCar.getPhoto()).into(ivCarPhoto);
+                tvCar_model.setText(myCar.getCar_model());
+                tvTest.setText(myCar.getTest());
+                tvkilometre.setText(myCar.getKilometre());
+                tvEngine_capacity.setText(myCar.getEngine_capacity());
+                tvGear_shifting_model.setText(myCar.getGear_shifting_model());
+                tvPrice.setText(myCar.getPrice());
+                if (myCar.getPhoto() == null || myCar.getPhoto().isEmpty())
+                {
+                    Picasso.get().load(R.drawable.ic_fav).into(ivCarPhoto);
+                }
+                else {
+                    Picasso.get().load(myCar.getPhoto()).into(ivCarPhoto);
+                }
             }
         }
         sendSMSButton = getView().findViewById(R.id.btnSMS);

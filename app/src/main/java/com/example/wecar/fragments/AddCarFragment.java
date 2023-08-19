@@ -246,10 +246,18 @@ public class AddCarFragment extends Fragment {
             return;
         }
 
-        Car car= new Car(nameCar, horse_power, owners, phone, color ,
-                car_num, manufacturer, year, Car_model,
-                test ,kilometre,Engine_capacity,Gear_shifting_model,price,fbs.getSelectedImageURL().toString()
-        );
+        Car car;
+        if (fbs.getSelectedImageURL() == null)
+        {
+            car= new Car(nameCar, horse_power, owners, phone, color ,
+                    car_num, manufacturer, year, Car_model,
+                    test ,kilometre,Engine_capacity,Gear_shifting_model,price,"");
+        }
+        else {
+            car = new Car(nameCar, horse_power, owners, phone, color,
+                    car_num, manufacturer, year, Car_model,
+                    test, kilometre, Engine_capacity, Gear_shifting_model, price, fbs.getSelectedImageURL().toString());
+        }
 
         fbs.getFire().collection("cars").add(car)
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

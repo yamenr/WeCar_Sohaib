@@ -50,7 +50,13 @@ public class myAdapter1 extends RecyclerView.Adapter<myAdapter1.MyViewHolder> {
                itemClickListener.onItemClick(position);
            }
         });
-       Picasso.get().load(car.getPhoto()).into(holder.ivCar);
+        if (car.getPhoto() == null || car.getPhoto().isEmpty())
+        {
+            Picasso.get().load(R.drawable.ic_fav).into(holder.ivCar);
+        }
+       else {
+            Picasso.get().load(car.getPhoto()).into(holder.ivCar);
+        }
    }
     @Override
     public int getItemCount(){

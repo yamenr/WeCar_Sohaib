@@ -86,11 +86,6 @@
             android:hint="Manufacturer" />
 
         <!-- Car Type -->
-        <TextView
-            android:id="@+id/tvCarTypeDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Car Type" />
 
         <!-- Year of Test -->
         <TextView
