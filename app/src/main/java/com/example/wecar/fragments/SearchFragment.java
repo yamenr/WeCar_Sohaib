@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -146,8 +148,7 @@ public class SearchFragment extends Fragment {
             if ((!manFlag) || (manFlag && manFound))
             {
                 if ((!modelFlag) || (modelFlag && modelFound) ) {
-                    if ((!yearStartFlag && !yearEndFlag) ||
-                            (((yearStartFlag && !yearEndFlag) || (!yearStartFlag && yearEndFlag)) && yearFound))
+                    if (yearFound)
                     {
                         filteredList.add(car);
                     }
@@ -158,6 +159,22 @@ public class SearchFragment extends Fragment {
 
         myAdapter= new myAdapter1(getActivity(),filteredList);
         recyclerView.setAdapter(myAdapter);
+
+        myAdapter.setOnItemClickListener(new myAdapter1.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Handle item click here
+                String selectedItem = list.get(position).getNameCar();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("car", list.get(position)); // or use Parcelable for better performance
+                CarDetailsFragment cd = new CarDetailsFragment();
+                cd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit();
+            }
+        });
     }
 
     private void clearSelections() {
